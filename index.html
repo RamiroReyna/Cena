@@ -17,6 +17,7 @@
             height: 100vh;
             color: #fff;
             text-align: center;
+            overflow: hidden; /* Evitar barras de desplazamiento */
         }
 
         /* Contenedor principal */
@@ -99,7 +100,7 @@
 
         <div class="button-container">
             <button id="btn-si" onclick="enviarRespuesta('Sí')">Sí</button>
-            <button id="btn-no" onmouseover="moverBoton()">No</button>
+            <button id="btn-no" onmousedown="moverBoton()" ontouchstart="moverBoton()">No</button>
         </div>
 
         <div class="footer">
