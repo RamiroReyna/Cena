@@ -100,7 +100,7 @@
 
         <div class="button-container">
             <button id="btn-si" onclick="enviarRespuesta('Sí')">Sí</button>
-            <button id="btn-no">No</button>
+            <button id="btn-no" onmousedown="moverBoton()" ontouchstart="moverBoton()">No</button>
         </div>
 
         <div class="footer">
@@ -136,9 +136,6 @@
             btnNo.style.left = x + "px";
             btnNo.style.top = y + "px";
         }
-
-        // Mover el botón "No" cada 500 ms
-        setInterval(moverBoton, 500);
     </script>
 
 </body>
