@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Especial</title>
+    <style>
+        /* Estilo Global */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Fondo degradado */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff6347; /* Rojo */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 20px;
+        }
+
+        button:hover {
+            background-color: #ff4500;
+            transform: translateY(-5px);
+        }
+
+        button:active {
+            transform: translateY(2px);
+        }
+
+        button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+
+        /* Estilo para la animación del botón 'No' */
+        #btn-no {
+            transition: all 0.3s ease;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 16px;
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        /* Sombra suave */
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¿Te gustaría ir a cenar?</h1>
+        <p>Fecha: 05 de Enero de 2024 a las 8:00 pm</p>
+        <p>Ubicación: Centro de Convenciones XYZ</p>
+        <p>¿Confirmas tu asistencia?</p>
+
+        <div class="button-container">
+            <button id="btn-si" onclick="enviarRespuesta('Sí')">Sí</button>
+            <button id="btn-no" onmouseover="moverBoton()">No</button>
+        </div>
+
+        <div class="footer">
+            Al dar click en cualquier opción, se enviará la respuesta automáticamente.
+        </div>
+    </div>
+
+    <script>
+        function enviarRespuesta(respuesta) {
+            const webhookURL = "https://hook.integromat.com/tucodigowebhook"; // Reemplaza con tu webhook de Integromat/Make
+            const data = { 
+                respuesta: respuesta,
+                invitado: "ramirotareas628@gmail.com", // Aquí puedes agregar datos dinámicos del invitado si tienes acceso.
+                fecha: new Date().toISOString()
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => alert(`Gracias, hemos registrado tu respuesta: ${respuesta}`))
+            .catch(() => alert("Hubo un error, intenta de nuevo más tarde."));
+        }
+
+        function moverBoton() {
+            const btnNo = document.getElementById("btn-no");
+            const x = Math.random() * (window.innerWidth - 100); // Limita el movimiento dentro del ancho de la ventana
+            const y = Math.random() * (window.innerHeight - 100); // Limita el movimiento dentro del alto de la ventana
+            btnNo.style.position = "absolute";
+            btnNo.style.left = x + "px";
+            btnNo.style.top = y + "px";
+        }
+    </script>
+
+</body>
+</html>
