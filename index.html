@@ -89,6 +89,9 @@
             justify-content: center;
         }
     </style>
+
+    <!-- Agregar SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -110,22 +113,55 @@
 
     <script>
         function enviarRespuesta(respuesta) {
-            const webhookURL = "https://hook.integromat.com/tucodigowebhook"; // Reemplaza con tu webhook de Integromat/Make
             const data = { 
                 respuesta: respuesta,
-                invitado: "ramirotareas628@gmail.com", // Aquí puedes agregar datos dinámicos del invitado si tienes acceso.
-                fecha: new Date().toISOString()
+                invitado: "ramirotareas628@gmail.com", // Datos del invitado
+                fecha: new Date().toISOString(),
             };
 
-            fetch(webhookURL, {
+            // Enviar al webhook
+            fetch("https://hook.integromat.com/tucodigowebhook", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(data)
             })
-            .then(() => alert(`Gracias, hemos registrado tu respuesta: ${respuesta}`))
-            .catch(() => alert("Hubo un error, intenta de nuevo más tarde."));
+            .then(() => {
+                // Si la respuesta es "Sí", mostrar la alerta personalizada
+                if (respuesta === 'Sí') {
+                    Swal.fire({
+                        title: 'Te amo, paso por ti a las 7:30',
+                        text: '¡Nos vemos en la cena!',
+                        icon: 'success',
+                        confirmButtonText: '¡Genial!',
+                        background: '#ff7e5f', // Fondo color gradiente (puedes personalizarlo)
+                        color: '#fff', // Color del texto
+                        confirmButtonColor: '#ff6347' // Color del botón
+                    });
+                } else {
+                    Swal.fire({
+                        title: '¡Lo siento!',
+                        text: '¡Esperamos verte en otra ocasión!',
+                        icon: 'info',
+                        confirmButtonText: 'Aceptar',
+                        background: '#feb47b',
+                        color: '#fff',
+                        confirmButtonColor: '#ff6347'
+                    });
+                }
+            })
+            .catch(() => {
+                Swal.fire({
+                    title: '¡Error!',
+                    text: 'Hubo un problema, intenta de nuevo más tarde.',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo',
+                    background: '#ff7e5f',
+                    color: '#fff',
+                    confirmButtonColor: '#ff6347'
+                });
+            });
         }
 
         function moverBoton() {
