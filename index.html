@@ -113,55 +113,18 @@
 
     <script>
         function enviarRespuesta(respuesta) {
-            const data = { 
-                respuesta: respuesta,
-                invitado: "ramirotareas628@gmail.com", // Datos del invitado
-                fecha: new Date().toISOString(),
-            };
-
-            // Enviar al webhook
-            fetch("https://hook.integromat.com/tucodigowebhook", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                // Si la respuesta es "Sí", mostrar la alerta personalizada
-                if (respuesta === 'Sí') {
-                    Swal.fire({
-                        title: 'Te amo, paso por ti a las 7:30',
-                        text: '¡Nos vemos en la cena!',
-                        icon: 'success',
-                        confirmButtonText: '¡Genial!',
-                        background: '#ff7e5f', // Fondo color gradiente (puedes personalizarlo)
-                        color: '#fff', // Color del texto
-                        confirmButtonColor: '#ff6347' // Color del botón
-                    });
-                } else {
-                    Swal.fire({
-                        title: '¡Lo siento!',
-                        text: '¡Esperamos verte en otra ocasión!',
-                        icon: 'info',
-                        confirmButtonText: 'Aceptar',
-                        background: '#feb47b',
-                        color: '#fff',
-                        confirmButtonColor: '#ff6347'
-                    });
-                }
-            })
-            .catch(() => {
+            // Si la respuesta es "Sí", mostrar la alerta personalizada
+            if (respuesta === 'Sí') {
                 Swal.fire({
-                    title: '¡Error!',
-                    text: 'Hubo un problema, intenta de nuevo más tarde.',
-                    icon: 'error',
-                    confirmButtonText: 'Intentar de nuevo',
-                    background: '#ff7e5f',
-                    color: '#fff',
-                    confirmButtonColor: '#ff6347'
+                    title: 'Te amo, paso por ti a las 7:30',
+                    text: '¡Nos vemos en la cena!',
+                    icon: 'success',
+                    confirmButtonText: '¡Genial!',
+                    background: '#ff7e5f', // Fondo color gradiente (puedes personalizarlo)
+                    color: '#fff', // Color del texto
+                    confirmButtonColor: '#ff6347' // Color del botón
                 });
-            });
+            }
         }
 
         function moverBoton() {
